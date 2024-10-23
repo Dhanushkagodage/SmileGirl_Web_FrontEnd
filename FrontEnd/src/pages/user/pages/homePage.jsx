@@ -8,8 +8,8 @@ function HomePage() {
   return (
     <Layout>
       {/* Page-specific content */}
-      <div className="xl:h-[550px] md:h-[400px] sm:h-[350px] bg-gradient-to-r from-white to-pink-400 relative  w-full">
-        <div className="grid grid-flow-col justify-between lg:px-26 xl:px-26 md:px-20 sm:px-12 xs:px-12 px-12 xl:h-[550px] md:h-[400px] sm:h-[350px]">
+      <div className="xl:h-[550px] md:h-[400px] sm:h-[350px] bg-gradient-to-r from-white to-pink-500 relative  w-full">
+        <div className="grid grid-flow-col justify-between lg:px-26 xl:px-26 sm:px-8 md:px-20 px-8 xl:h-[550px] md:h-[400px] sm:h-[350px]">
           {/* Text content */}
           <div className="text-left lg:py-28 xl:py-28 md:py-20 sm:py-16 py-6 xl:h-[550px] md:h-[400px] sm:h-[350px]">
             <h1 className="font-bold text-black sm:text-[25px] md:text-[30px] lg:text-[40px] xl:text-[48px] text-[20px] font-Poppins">
