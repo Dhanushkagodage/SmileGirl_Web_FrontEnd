@@ -1,22 +1,28 @@
 import { useState } from "react";
 
-function ColorQuantityTable() {
+function ColorQuantityTable({ onColorsChange }) {
   const [colors, setColors] = useState([]);
   
-  const handleAddColor = () => {
-    setColors([...colors, { color: "", quantities: Array(7).fill(0) }]);
+  const handleAddColor = (e) => {
+    e.preventDefault();
+    const newColors = [...colors, { color: "", quantities: Array(7).fill(0) }];
+    setColors(newColors);
+    onColorsChange(newColors);
   };
+
 
   const handleColorChange = (index, newColor) => {
     const newColors = [...colors];
     newColors[index].color = newColor;
     setColors(newColors);
+    onColorsChange(newColors);
   };
 
   const handleQuantityChange = (colorIndex, sizeIndex, quantity) => {
     const newColors = [...colors];
     newColors[colorIndex].quantities[sizeIndex] = quantity;
     setColors(newColors);
+    onColorsChange(newColors);
   };
 
   return (
@@ -63,6 +69,7 @@ function ColorQuantityTable() {
           <tr className="pt-4 border border-gray-300">
             <td colSpan="8" className=" text-left py-2 px-2">
               <button
+               type="button" 
                 onClick={handleAddColor}
                 className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-[10px] sm:text-[12px] md:text-[12px] lg:text-[14px] xl:text-[14px] w-full"
               >

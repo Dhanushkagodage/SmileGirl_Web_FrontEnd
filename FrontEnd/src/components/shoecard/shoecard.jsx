@@ -6,7 +6,7 @@ import AboutShoe from '../../pages/user/pages/aboutShoe';
 import { useNavigate } from 'react-router-dom';
 
 
-function Shoecard() {
+function Shoecard({ product }) {
   const rating = 4;
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ function Shoecard() {
 
         {/* text row */}
         <div className="text-center h-fit text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] font-Poppins  text-black flex flex-col justify-center pt-3 pb-3 ">
-          <h1 className='font-medium'>Basic Braided Sliders</h1>
+          <h1 className='font-medium'>{product.productName}</h1>
 
           {/* Review stars */}
           <div className="flex justify-center items-center mb-2">
@@ -41,7 +41,7 @@ function Shoecard() {
             ))}
           </div>
 
-          <h1 className='font-normal'>Rs.2,860.00</h1>
+          <h1 className='font-normal'>Rs.{product.rentalPrice}</h1>
         </div>
       </div>
     </div>
