@@ -16,7 +16,7 @@ function Shoecard({ product }) {
         {/* image row */}
         <div className="relative h-fit">
           <img
-            src={Image}
+            src={product.imageUrl}
             alt="shoe"
             loading="lazy"
             className="object-cover w-full h-full"

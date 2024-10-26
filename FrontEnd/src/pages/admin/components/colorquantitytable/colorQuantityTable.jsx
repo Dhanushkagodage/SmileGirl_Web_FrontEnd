@@ -35,7 +35,7 @@ function ColorQuantityTable({ onColorsChange }) {
           </tr>
           <tr>
             {["3", "4", "5", "6", "7", "8", "9"].map((size) => (
-              <th key={size} className="text-center  border border-gray-300  py-2 w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] font-medium">{size}</th>
+              <th key={size} className="text-center  border border-gray-300  py-2 w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] font-medium bg-black text-white">{size}</th>
             ))}
           </tr>
         </thead>
@@ -47,6 +47,7 @@ function ColorQuantityTable({ onColorsChange }) {
                   type="text"
                   placeholder="Enter color"
                   value={color.color}
+                  required
                   onChange={(e) => handleColorChange(colorIndex, e.target.value)}
                   className="text-center w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] p-1 border border-gray-300"
                 />
@@ -57,6 +58,7 @@ function ColorQuantityTable({ onColorsChange }) {
                     type="number"
                     min="0"
                     value={quantity}
+                    required
                     onChange={(e) =>
                       handleQuantityChange(colorIndex, sizeIndex, e.target.value)
                     }

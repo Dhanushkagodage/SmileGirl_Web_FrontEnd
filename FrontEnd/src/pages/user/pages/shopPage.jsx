@@ -16,24 +16,24 @@
 
 //   return (
 //     <Layout>
-//       <div className="relative h-auto sm:h-[300px] md:h-[400px] xl:h-[550px]">
-//         {/* Background Image */}
-//         <img
-//           src={shopbgimage}
-//           alt="shopbgimage"
-//           className="w-full h-auto sm:h-[300px] md:h-[400px] xl:h-[550px] object-cover"
-//         />
+// <div className="relative h-auto sm:h-[300px] md:h-[400px] xl:h-[550px]">
+//   {/* Background Image */}
+//   <img
+//     src={shopbgimage}
+//     alt="shopbgimage"
+//     className="w-full h-auto sm:h-[300px] md:h-[400px] xl:h-[550px] object-cover"
+//   />
 
-//         {/* Gradient Overlay */}
-//         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white/20 to-pink-400/65"></div>
+//   {/* Gradient Overlay */}
+//   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white/20 to-pink-400/65"></div>
 
-//         {/* Additional Content */}
-//         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center text-center">
-//           <h1 className="font-bold text-black text-[20px] sm:text-[25px] md:text-[30px] lg:text-[48px] font-Poppins">
-//             Find your sole mate <br /> at Smile Girl
-//           </h1>
-//         </div>
-//       </div>
+//   {/* Additional Content */}
+//   <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center text-center">
+//     <h1 className="font-bold text-black text-[20px] sm:text-[25px] md:text-[30px] lg:text-[48px] font-Poppins">
+//       Find your sole mate <br /> at Smile Girl
+//     </h1>
+//   </div>
+// </div>
 //       <div className="lg:px-26 xl:px-26 sm:px-8 md:px-20 px-8">
 //       <div className=" grid-cols-2 flex justify-between lg:pt-[40px] xl:pt-[40px] md:pt-[30px] sm:pt-[20px] xs:pt-[20px] pt-[20px]  items-center text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">
 //         <div>
@@ -70,7 +70,6 @@
 
 // export default ShopPage;
 
-
 import React, { useState, useEffect } from "react";
 import Layout from "../../../components/layout/layout";
 import shopbgimage from "../../../assets/shoppagebg.png";
@@ -102,11 +101,30 @@ function ShopPage() {
 
   return (
     <Layout>
-      {/* Existing layout and background code */}
+      <div className="relative h-auto sm:h-[300px] md:h-[400px] xl:h-[550px]">
+        {/* Background Image */}
+        <img
+          src={shopbgimage}
+          alt="shopbgimage"
+          className="w-full h-auto sm:h-[300px] md:h-[400px] xl:h-[550px] object-cover"
+        />
+
+        {/* Gradient Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white/20 to-pink-400/65"></div>
+
+        {/* Additional Content */}
+        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center text-center">
+          <h1 className="font-bold text-black text-[20px] sm:text-[25px] md:text-[30px] lg:text-[48px] font-Poppins">
+            Find your sole mate <br /> at Smile Girl
+          </h1>
+        </div>
+      </div>
       <div className="lg:px-26 xl:px-26 sm:px-8 md:px-20 px-8">
         <div className=" grid-cols-2 flex justify-between lg:pt-[40px] xl:pt-[40px] md:pt-[30px] sm:pt-[20px] xs:pt-[20px] pt-[20px]  items-center text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">
           <div>
-            <h1 className="text-gray-500">Showing 1–18 of {products.length} results</h1>
+            <h1 className="text-gray-500">
+              Showing 1–18 of {products.length} results
+            </h1>
           </div>
           <div className="flex justify-end">
             <select
