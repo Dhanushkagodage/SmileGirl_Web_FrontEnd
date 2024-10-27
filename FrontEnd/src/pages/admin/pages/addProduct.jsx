@@ -569,7 +569,7 @@ function addProduct() {
                 </div>
                 {croppingImage && (
                   <div className="fixed inset-0 flex items-center justify-center rounded-lg">
-                    <div className=" ">
+                    <div className=" rounded-lg ">
                       <ImageCropper
                         image={croppingImage}
                         onCropDone={handleCroppedImage}
@@ -596,19 +596,20 @@ function addProduct() {
                 </div>
               </div>
               <div className="flex gap-4 justify-end items-end mt-4">
-                <button
-                  type="submit"
-                  className="
-                 text-white bg-custom-pink hover:bg-pink-400 f font-medium rounded-lg   xl:py-2 xl:px-10 lg:py-2 lg:px-10 md:py-1 md:px-6 sm:py-1 sm:px-4  py-1 px-4 text-center"
-                >
-                  Add Product
-                </button>
+                
                 <button
                   className=" text-white bg-gray-700 hover:bg-gray-400 focus:ring-4  font-medium rounded-lg   xl:py-2 xl:px-10 lg:py-2 lg:px-10 md:py-1 md:px-6 sm:py-1 sm:px-4  py-1 px-4 text-center"
                   type="button"
                   onClick={handleCancel}
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="
+                 text-white bg-custom-pink hover:bg-pink-400 f font-medium rounded-lg   xl:py-2 xl:px-10 lg:py-2 lg:px-10 md:py-1 md:px-6 sm:py-1 sm:px-4  py-1 px-4 text-center"
+                >
+                  Add Product
                 </button>
               </div>
             </div>

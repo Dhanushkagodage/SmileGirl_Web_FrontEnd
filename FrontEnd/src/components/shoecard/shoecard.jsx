@@ -3,7 +3,7 @@ import React from 'react';
 import Image from '../../assets/1.jpg';
 import { FaRegHeart , FaRegEye  } from 'react-icons/fa';
 import AboutShoe from '../../pages/user/pages/aboutShoe';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function Shoecard({ product }) {
@@ -11,7 +11,8 @@ function Shoecard({ product }) {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full " onClick={() => navigate('/aboutShoe')}>
+    <Link to={`/shop/${product.id}`}>
+    <div className="w-full " >
       <div className="grid h-fit shadow-[0_0_10px_0_rgba(0,0,0,0.2)] relative">
         {/* image row */}
         <div className="relative h-fit">
@@ -30,7 +31,7 @@ function Shoecard({ product }) {
 
         {/* text row */}
         <div className="text-center h-fit text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px] font-Poppins  text-black flex flex-col justify-center pt-3 pb-3 ">
-          <h1 className='font-medium'>{product.productName}</h1>
+          <h1 className='font-semibold'>{product.productName}</h1>
 
           {/* Review stars */}
           <div className="flex justify-center items-center mb-2">
@@ -41,10 +42,11 @@ function Shoecard({ product }) {
             ))}
           </div>
 
-          <h1 className='font-normal'>Rs.{product.rentalPrice}</h1>
+          <h1 className='font-medium text-gray-600'>Rs.{product.rentalPrice}.00</h1>
         </div>
       </div>
     </div>
+    </Link>
   );
 }
 

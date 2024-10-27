@@ -2,18 +2,40 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "../../../assets/1.jpg";
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { MdOutlineEmail } from "react-icons/md";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Footer from "../../../components/footer/footer";
 import FavouriteDrawer from "../components/favouritedrawer/favouriteDrawer";
 import ShopcartDrawer from "../components/shopcartdrawer/shopcartDrawer";
 import LoginCard from "../../../components/login/loginCard";
+import { getProductByID } from "../../../services/api";
 
-function aboutShoe() {
+function AboutShoe() {
   const rating = 4;
   const navigate = useNavigate();
+  const { productId } = useParams(); // Extract the product ID from the URL
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const fetchedProduct = await getProductByID(productId);
+        setProduct(fetchedProduct);
+        console.log(fetchedProduct);
+      } catch (err) {
+        setError(err.response ? err.response.data : err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isfavDrawerOpen, setIsfavDrawerOpen] = useState(false);
@@ -34,6 +56,9 @@ function aboutShoe() {
   const toggleLoginCard = () => {
     setIsLoginCardOpen(!isLoginCardOpen);
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
   return (
     <div
       className=" justify-center items-center align-middle w-screen
@@ -48,6 +73,16 @@ function aboutShoe() {
             </span>
             irl
           </h1>
+        </div>
+        <div className="hidden md:block lg:block xl:block">
+          <div className="flex items-center">
+            <div className="bg-custom-pink w-8 h-14 justify-center items-center text-center mr-2">
+              <h1 className="pt-3">🚚</h1>
+            </div>
+            <h1 className="font-poppins text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-black font-bold">
+                Enjoy free delivery on orders over Rs 10,000... 📦✨
+            </h1>
+          </div>
         </div>
 
         {/* Second nav (icons) - always visible */}
@@ -89,7 +124,7 @@ function aboutShoe() {
             <i className="fa-solid fa-arrow-left text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px]"></i>
           </button>
           <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px]">
-            Shop/About Footwear/ Basic Braided Sliders
+            Shop/About Footwear/{product.productName}
           </h1>
         </div>
         <div className="bg-gray-50  rounded-lg lg:p-10 xl:p-10 sm:p-8 md:p-8 p-8 w-full">
@@ -100,7 +135,7 @@ function aboutShoe() {
               <div className="grid xl:grid-flow-row lg:grid-flow-row sm:grid-flow-col md:grid-flow-row grid-flow-col  h-fit gap-[10px]">
                 <div className="">
                   <img
-                    src={Image}
+                    src={product.imageUrls[1]}
                     alt="shoe"
                     loading="lazy"
                     className="object-contain h-[80px] sm:h-[100px] md:h-[120px] lg:h-[140px] xl:h-[140px] w-full"
@@ -108,7 +143,7 @@ function aboutShoe() {
                 </div>
                 <div className="">
                   <img
-                    src={Image}
+                    src={product.imageUrls[2]}
                     alt="shoe"
                     loading="lazy"
                     className="object-contain h-[80px] sm:h-[100px] md:h-[120px] lg:h-[140px] xl:h-[140px]"
@@ -116,7 +151,7 @@ function aboutShoe() {
                 </div>
                 <div className="">
                   <img
-                    src={Image}
+                    src={product.imageUrls[3]}
                     alt="shoe"
                     loading="lazy"
                     className="object-contain h-[80px] sm:h-[100px] md:h-[120px] lg:h-[140px] xl:h-[140px]"
@@ -126,7 +161,7 @@ function aboutShoe() {
               {/* 1 large image */}
               <div className="">
                 <img
-                  src={Image}
+                  src={product.imageUrls[0]}
                   alt="shoe"
                   loading="lazy"
                   className="object-contain h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] xl:h-[440px] w-full"
@@ -137,11 +172,13 @@ function aboutShoe() {
             <div className="justify-self-start text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-poppins">
               {/* name */}
               <h1 className=" font-medium text-black mb-1">
-                Basic Braided Sliders
+                {product.productName}
               </h1>
 
               {/* price */}
-              <h1 className=" font-normal text-black mb-1">Rs.6,800.00</h1>
+              <h1 className=" font-normal text-black mb-1">
+                Rs.{product.rentalPrice}
+              </h1>
 
               {/* rating */}
               <div className="flex  items-center mb-4">
@@ -159,11 +196,20 @@ function aboutShoe() {
               {/* colors */}
               <div className="mb-4 grid ">
                 <h1 className="font-medium text-black mb-2">Colors :</h1>
-                <div className="flex gap-2">
+                {/* <div className="flex gap-2">
                   <button className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px]  bg-black rounded"></button>
                   <button className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px]  bg-white rounded border-[1px] border-black"></button>
                   <button className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px] bg-red-500 rounded"></button>
                   <button className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px]  bg-yellow-200 rounded"></button>
+                </div> */}
+                <div className="flex gap-2">
+                  {product.colors.map((color, index) => (
+                    <button
+                      key={index}
+                      className={`xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px] rounded border-[1px] border-black`}
+                      style={{ backgroundColor: color.colorName.toLowerCase() }} // Using the color name for the background
+                    ></button>
+                  ))}
                 </div>
               </div>
 
@@ -214,14 +260,14 @@ function aboutShoe() {
                 <h1 className="text-[8px] sm:text-[8px] md:text-[10px] lg:text-[12px] font-medium text-gray-600 mb-2">
                   Contact our customer service.
                 </h1>
-                <div className="grid grid-flow-col gap-5  justify-start text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px]">
+                <div className="grid grid-flow-col gap-8  justify-start text-[6px] sm:text-[8px] md:text-[10px] lg:text-[12px]">
                   <div className="flex flex-col items-center justify-start">
                     <FaWhatsapp className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px] mb-1" />
                     <h1>WhatsApp</h1>
                     <h1>+91 123456789</h1>
                   </div>
                   <div className="flex flex-col items-center justify-start">
-                    <FaEnvelope className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px] mb-1" />
+                    <MdOutlineEmail className="xl:w-[30px] lg:w-[30px] md:w-[25px] sm:w-[20px] w-[20px] xl:h-[30px] lg:h-[30px] md:h-[25px] sm:h-[20px] h-[20px] mb-1" />
                     <h1>Email</h1>
                     <h1>smilegirl@gmail.com</h1>
                   </div>
@@ -235,51 +281,57 @@ function aboutShoe() {
                 More Details
               </h1>
             </div>
-            <div className="grid xl:grid-flow-col px-6 py-2 gap-[20px]">
-              <div>
-                <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
-                  About Product :
-                </h1>
-                <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600 ">
-                  <h1 className="  ">
-                    Colors : Black ,Maroon
+            <div className="grid xl:grid-flow- gap-[20px]">
+              <div className="grid xl:grid-flow-col px-6 py-2 gap-[20px]">
+                <div>
+                  <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
+                    About Product :
                   </h1>
-                  <h1 className="  ">
-                    Gender : Ladies
+                  <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600 ">
+                    <h1 className="  ">
+                      Colors :
+                      {product.colors
+                        .map((color) => color.colorName)
+                        .join(", ")}
+                    </h1>
+                    <h1 className="  ">Gender : Ladies</h1>
+                    <h1 className="">Material : {product.material}</h1>
+                    <h1 className=" ">Type of Wear : {product.typeOfWear}</h1>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
+                    Delivery Fee :
                   </h1>
-                  <h1 className="">
-                    Material : Synthetic
+                  <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600">
+                    <h1 className="">
+                      - Delivery fees vary based on your location and order
+                      total.
+                    </h1>
+                    <h1 className="">
+                      - Enjoy free delivery on orders over Rs 10,000
+                    </h1>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
+                    Look After Product :
                   </h1>
-                  <h1 className=" ">
-                    Type of Wear : Flatforms
-                  </h1>
+                  <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600">
+                    <h1 className="">Just here for the care instructions?</h1>
+                    <h1 className=" mt-6">
+                      Yeah, we know it. <br />
+                      Use a toothbrush or soft shoe brush to remove dirt.
+                    </h1>
+                  </div>
                 </div>
               </div>
-              <div>
+              <div className="px-6 md:py-2 ">
                 <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
-                  Delivery Fee :
+                  Description :
                 </h1>
                 <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600">
-                  <h1 className="">
-                    - Delivery fees vary based on your location and order total.
-                  </h1>
-                  <h1 className="">
-                    - Enjoy free delivery on orders over Rs 10,000
-                  </h1>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-[11px] sm:text-[12px] md:text-[15px] lg:text-[16px] font-medium text-black underline underline-offset-4">
-                  Look After Product :
-                </h1>
-                <div className="mt-4 ml-2 text-[10px] sm:text-[10px] md:text-[13px] lg:text-[14px] text-gray-600">
-                  <h1 className="">
-                    Just here for the care instructions?
-                  </h1>
-                  <h1 className=" mt-6">
-                    Yeah, we know it. <br />
-                    Use a toothbrush or soft shoe brush to remove dirt.
-                  </h1>
+                  <h1 className="">{product.description}</h1>
                 </div>
               </div>
             </div>
@@ -308,4 +360,4 @@ function aboutShoe() {
   );
 }
 
-export default aboutShoe;
+export default AboutShoe;

@@ -158,9 +158,9 @@ function ImageCropper({ image, onCropDone, onCropCancel }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50  rounded-lg">
       <div className="rounded-lg   w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 ">
-        <h2 className="text-center text-lg font-semibold py-4 bg-black text-white ">
+        <h2 className="text-center text-lg font-semibold py-4 bg-custom-pink text-white ">
           Crop Image
         </h2>
         <div className="relative w-full h-96 items-center  ">

@@ -21,10 +21,22 @@ async function createProduct(productData) {
 async function getProducts() {
   try {
     const response = await axios.get(`${API_BASE_URL}/getallproducts`);
-    console.log(response.data);
+   // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error.response ? error.response.data : error.message);
+    throw error;
+  }
+}
+
+// Function to get a single product
+async function getProductByID(productId) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/getproductByID/${productId}`);
+    //console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching product:", error.response ? error.response.data : error.message);
     throw error;
   }
 }
@@ -55,4 +67,4 @@ async function deleteProduct(productId) {
   }
 }
 
-export { createProduct, getProducts, updateProduct, deleteProduct };
+export { createProduct, getProducts, updateProduct, deleteProduct, getProductByID };

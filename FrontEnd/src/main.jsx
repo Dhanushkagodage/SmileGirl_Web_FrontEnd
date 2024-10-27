@@ -22,11 +22,12 @@ createRoot(document.getElementById("root")).render(
         <Route path="/customize" element={<CustomizePage />} />
         <Route path="/about" element={<AboutusPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/aboutshoe" element={<AboutShoe />} />
+        {/* <Route path="/aboutshoe" element={<AboutShoe />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addproduct" element={<AddProduct />} />
         <Route path="/allproducts" element={<AllProducts />} />
         <Route path="/orderslist" element={<OrdersList />} />
+        <Route path="/shop/:productId" element={<AboutShoe />}  />
       </Routes>
     </Router>
   </StrictMode>
