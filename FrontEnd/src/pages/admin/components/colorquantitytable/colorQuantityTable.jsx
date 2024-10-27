@@ -1,22 +1,28 @@
 import { useState } from "react";
 
-function ColorQuantityTable() {
+function ColorQuantityTable({ onColorsChange }) {
   const [colors, setColors] = useState([]);
   
-  const handleAddColor = () => {
-    setColors([...colors, { color: "", quantities: Array(7).fill(0) }]);
+  const handleAddColor = (e) => {
+    e.preventDefault();
+    const newColors = [...colors, { color: "", quantities: Array(7).fill(0) }];
+    setColors(newColors);
+    onColorsChange(newColors);
   };
+
 
   const handleColorChange = (index, newColor) => {
     const newColors = [...colors];
     newColors[index].color = newColor;
     setColors(newColors);
+    onColorsChange(newColors);
   };
 
   const handleQuantityChange = (colorIndex, sizeIndex, quantity) => {
     const newColors = [...colors];
     newColors[colorIndex].quantities[sizeIndex] = quantity;
     setColors(newColors);
+    onColorsChange(newColors);
   };
 
   return (
@@ -29,7 +35,7 @@ function ColorQuantityTable() {
           </tr>
           <tr>
             {["3", "4", "5", "6", "7", "8", "9"].map((size) => (
-              <th key={size} className="text-center  border border-gray-300  py-2 w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] font-medium">{size}</th>
+              <th key={size} className="text-center  border border-gray-300  py-2 w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] font-medium bg-black text-white">{size}</th>
             ))}
           </tr>
         </thead>
@@ -41,6 +47,7 @@ function ColorQuantityTable() {
                   type="text"
                   placeholder="Enter color"
                   value={color.color}
+                  required
                   onChange={(e) => handleColorChange(colorIndex, e.target.value)}
                   className="text-center w-[40px] sm:w-[60px] md:w-[80px] lg:w-[80px] xl:w-[80px] p-1 border border-gray-300"
                 />
@@ -51,6 +58,7 @@ function ColorQuantityTable() {
                     type="number"
                     min="0"
                     value={quantity}
+                    required
                     onChange={(e) =>
                       handleQuantityChange(colorIndex, sizeIndex, e.target.value)
                     }
@@ -63,6 +71,7 @@ function ColorQuantityTable() {
           <tr className="pt-4 border border-gray-300">
             <td colSpan="8" className=" text-left py-2 px-2">
               <button
+               type="button" 
                 onClick={handleAddColor}
                 className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 text-[10px] sm:text-[12px] md:text-[12px] lg:text-[14px] xl:text-[14px] w-full"
               >
